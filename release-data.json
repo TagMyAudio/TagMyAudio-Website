@@ -6,13 +6,13 @@
   "assets": {
     "macarm": {
       "url": "https://github.com/TagMyAudio/TagMyAudio/releases/download/v1.8.6/TagMyAudio-1.8.6-macOS-arm64-community.zip",
-      "sha256": "0268ceb700909c1b06fa3823bfb5faa8e68ac7af7cadb889e083022139ea507c",
-      "downloads": 2
+      "sha256": "d389f483476b360a811e3d050fcf24bc83608aca36ce21bfdfd19e0662e3de82",
+      "downloads": 0
     },
     "macintel": {
       "url": "https://github.com/TagMyAudio/TagMyAudio/releases/download/v1.8.6/TagMyAudio-1.8.6-macOS-x86_64-community.zip",
       "sha256": "b0006c7db6b9fa2326d9ab58b36c7f2f9c960c884e52b6df7b1d23dee508965d",
-      "downloads": 2
+      "downloads": 3
     },
     "setup": {
       "url": "https://github.com/TagMyAudio/TagMyAudio/releases/download/v1.8.6/TagMyAudio-1.8.6-Windows-x64-Setup.exe",
@@ -27,7 +27,7 @@
     "mackit": {
       "url": "https://github.com/TagMyAudio/TagMyAudio/releases/download/v1.8.6/TagMyAudio-1.8.6-Build-macOS.zip",
       "sha256": "eb28a004b1b25d3ce498ef9bfaf62f841936833ca868fc133e8ee25e5c684c98",
-      "downloads": 2
+      "downloads": 3
     },
     "winkit": {
       "url": "https://github.com/TagMyAudio/TagMyAudio/releases/download/v1.8.6/TagMyAudio-1.8.6-Build-Win.zip",
@@ -40,5 +40,5 @@
       "downloads": 2
     }
   },
-  "updated_at": "2026-11-21T22:41:39+00:00"
+  "updated_at": "2026-11-21T23:52:56+00:00"
 }
