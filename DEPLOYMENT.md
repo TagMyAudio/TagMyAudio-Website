@@ -4,7 +4,7 @@ This website runs on ordinary Apache hosting. Node.js and PHP execution are not 
 
 ## Release information
 
-The `Refresh GitHub release data` GitHub Actions workflow runs at minutes 17 and 47 of each hour, or manually through **Actions > Refresh GitHub release data > Run workflow**. GitHub may delay scheduled runs. Scheduled workflows may be disabled by GitHub after prolonged repository inactivity; monitor the Actions page.
+The `Refresh GitHub release data` GitHub Actions workflow runs every five minutes (at minutes 2, 7, 12, and so on through 57 of each hour), or manually through **Actions > Refresh GitHub release data > Run workflow**. GitHub may delay scheduled runs. Scheduled workflows may be disabled by GitHub after prolonged repository inactivity; monitor the Actions page.
 
 The workflow reads the application's release designated **Latest**. It accepts only a stable version with all seven expected distribution/source/build assets, a SHA-256 digest for each, and `SHA256SUMS.txt`. Keep the naming convention used in 1.8.6. Upload all files before publishing the release. Incomplete releases fail validation and leave the previous snapshot untouched. Automatic downgrades are rejected.
 
