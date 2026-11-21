@@ -13,3 +13,7 @@ The supplied design, screenshots, translations and guides have been retained. Th
 [Application source and releases](https://github.com/TagMyAudio/TagMyAudio)
 
 No domain or hosting configuration is changed by this repository import.
+
+## Automatic updates and deployment
+
+Release information and application download counts are refreshed from GitHub by a scheduled workflow. The site reads the validated snapshot without requiring Node.js or server-side PHP. See [DEPLOYMENT.md](DEPLOYMENT.md) for counter definitions, release requirements and Infomaniak setup. Automatic hosting deployment is prepared but remains disabled until hosting credentials and the dedicated site path are configured.

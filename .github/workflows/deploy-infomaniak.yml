@@ -1,0 +1,55 @@
+name: Deploy website to Infomaniak
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'index.html'
+      - '*.js'
+      - 'assets/**'
+      - 'guides/**'
+      - '.github/workflows/deploy-infomaniak.yml'
+permissions:
+  contents: read
+concurrency:
+  group: infomaniak-production
+  cancel-in-progress: false
+jobs:
+  deploy:
+    if: vars.INFOMANIAK_DEPLOY_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+      - name: Prepare public website files
+        run: |
+          mkdir public-site
+          cp index.html app.js release-sync.js release-data.json public-site/
+          cp -R assets guides public-site/
+      - name: Deploy using verified SSH
+        env:
+          DEPLOY_HOST: ${{ vars.INFOMANIAK_HOST }}
+          DEPLOY_USER: ${{ vars.INFOMANIAK_USER }}
+          DEPLOY_PORT: ${{ vars.INFOMANIAK_PORT || '22' }}
+          DEPLOY_PATH: ${{ vars.INFOMANIAK_PATH }}
+          DEPLOY_KEY: ${{ secrets.INFOMANIAK_SSH_KEY }}
+          DEPLOY_KNOWN_HOSTS: ${{ secrets.INFOMANIAK_KNOWN_HOSTS }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          [[ "$DEPLOY_HOST" =~ ^[A-Za-z0-9.-]+$ ]]
+          [[ "$DEPLOY_USER" =~ ^[A-Za-z0-9_-]+$ ]]
+          [[ "$DEPLOY_PORT" =~ ^[0-9]+$ ]]
+          # Only deploy to the dedicated TagMyAudio directory, never the hosting root or LUFScale.
+          [[ "$DEPLOY_PATH" =~ ^/[A-Za-z0-9_./-]+/tagmyaudio\.net/?$ ]]
+          [[ "$DEPLOY_PATH" != *..* ]]
+          [[ -n "$DEPLOY_KEY" && -n "$DEPLOY_KNOWN_HOSTS" ]]
+          umask 077
+          mkdir -p "$HOME/.ssh"
+          printf '%s\n' "$DEPLOY_KEY" > "$HOME/.ssh/tagmyaudio_deploy"
+          printf '%s\n' "$DEPLOY_KNOWN_HOSTS" > "$HOME/.ssh/known_hosts"
+          trap 'rm -f "$HOME/.ssh/tagmyaudio_deploy"' EXIT
+          export RSYNC_RSH="ssh -i $HOME/.ssh/tagmyaudio_deploy -p $DEPLOY_PORT -o BatchMode=yes -o StrictHostKeyChecking=yes"
+          # Keep existing files; only the explicit public file list is uploaded.
+          rsync -az --delay-updates --exclude=index.html public-site/ "$DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH/"
+          rsync -az --delay-updates public-site/index.html "$DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH/"
