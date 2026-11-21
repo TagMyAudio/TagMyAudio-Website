@@ -47,14 +47,6 @@
       number.textContent = new Intl.NumberFormat(lang).format(count);
       card.querySelector('.download-count').title = text[0];
     });
-    let note = document.getElementById('release-data-note');
-    if (!note) {
-      note = document.createElement('p'); note.id = 'release-data-note';
-      document.querySelector('#telecharger .download-grid').after(note);
-    }
-    note.textContent = text[0] + ' · ' + text[1] + ' ' + new Intl.DateTimeFormat(lang, {dateStyle:'medium', timeStyle:'short'}).format(new Date(current.updated_at)) + ' · ';
-    const link = document.createElement('a'); link.href = current.release_url; link.textContent = text[2];
-    note.append(link);
   }
   async function read(url) {
     const controller = new AbortController();
