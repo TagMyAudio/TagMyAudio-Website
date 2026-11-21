@@ -10,6 +10,6 @@ Languages: English, French, Spanish, Italian, Portuguese, Russian, Japanese, Hin
 
 The supplied design, screenshots, translations and guides have been retained. The PayPal link remains unconfigured pending the official donation URL.
 
-[Application source and releases](https://github.com/Lufscale/TagMyAudio)
+[Application source and releases](https://github.com/TagMyAudio/TagMyAudio)
 
 No domain or hosting configuration is changed by this repository import.
