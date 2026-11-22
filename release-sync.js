@@ -18,6 +18,7 @@
     tr: ['Bu sürümün indirilme sayısı (yalnızca uygulamalar)', 'Veri tarihi', 'Sürüm notları']
   };
   let current = null;
+  let refreshingCounts = false;
   function valid(data) {
     if (data?.schema !== 1 || !/^\d+\.\d+\.\d+$/.test(data.version) || !Number.isFinite(Date.parse(data.updated_at))) return false;
     const expected = new RegExp('^https://github\\.com/TagMyAudio/TagMyAudio/releases/download/v?' + data.version.replaceAll('.', '\\.') + '/TagMyAudio-');
@@ -59,8 +60,37 @@
       return data;
     } finally { clearTimeout(timeout); }
   }
+  async function refreshCounts() {
+    if (!current || refreshingCounts || document.hidden) return;
+    refreshingCounts = true;
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 8000);
+    try {
+      const response = await fetch('https://api.github.com/repos/TagMyAudio/TagMyAudio/releases/tags/' + current.release_url.split('/').pop(), {
+        signal: controller.signal, credentials: 'omit', cache: 'no-store',
+        headers: { Accept: 'application/vnd.github+json' }
+      });
+      if (!response.ok) throw new Error('Live counts unavailable');
+      const release = await response.json();
+      if (release.html_url !== current.release_url || !Array.isArray(release.assets)) throw new Error('Unexpected release');
+      const counts = {};
+      for (const key of keys) {
+        const asset = release.assets.find(a => a.browser_download_url === current.assets[key].url);
+        if (!asset || !Number.isSafeInteger(asset.download_count) || asset.download_count < 0) throw new Error('Invalid live count');
+        counts[key] = asset.download_count;
+      }
+      for (const key of keys) current.assets[key].downloads = counts[key];
+      render();
+    } catch {
+      // Retain the last known counts if GitHub is unavailable or rate-limited.
+    } finally {
+      clearTimeout(timeout);
+      refreshingCounts = false;
+    }
+  }
   document.addEventListener('tagmyaudio:language', render);
-  read(source).catch(() => read('release-data.json')).then(data => { current = data; render(); }).catch(() => {
+  read(source).catch(() => read('release-data.json')).then(data => { current = data; render(); void refreshCounts(); }).catch(() => {
     // Keep the reviewed HTML links and hashes. Unknown counts remain a dash, never a fabricated zero.
   });
+  setInterval(() => { void refreshCounts(); }, 5 * 60 * 1000);
 })();
