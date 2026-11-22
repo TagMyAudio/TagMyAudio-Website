@@ -4,18 +4,18 @@
   const source = 'https://raw.githubusercontent.com/TagMyAudio/TagMyAudio-Website/main/release-data.json';
   const keys = ['macarm', 'macintel', 'mackit', 'setup', 'portable', 'winkit', 'sources'];
   const labels = {
-    en: ['Downloads of this version (applications only)', 'Snapshot', 'Release notes'],
-    fr: ['Téléchargements de cette version (applications uniquement)', 'Relevé du', 'Notes de version'],
-    es: ['Descargas de esta versión (solo aplicaciones)', 'Datos del', 'Notas de la versión'],
-    it: ['Download di questa versione (solo applicazioni)', 'Dati del', 'Note di versione'],
-    pt: ['Downloads desta versão (apenas aplicações)', 'Dados de', 'Notas da versão'],
-    ru: ['Загрузки этой версии (только приложения)', 'Данные на', 'Примечания к выпуску'],
-    ja: ['このバージョンのダウンロード数（アプリのみ）', '集計日時', 'リリースノート'],
-    hi: ['इस संस्करण के डाउनलोड (केवल ऐप्लिकेशन)', 'आँकड़ों की तारीख', 'रिलीज़ नोट्स'],
-    zh: ['此版本的下载次数（仅应用程序）', '统计时间', '发行说明'],
-    ko: ['이 버전의 다운로드 수(앱만)', '집계 시각', '릴리스 노트'],
-    id: ['Unduhan versi ini (hanya aplikasi)', 'Data per', 'Catatan rilis'],
-    tr: ['Bu sürümün indirilme sayısı (yalnızca uygulamalar)', 'Veri tarihi', 'Sürüm notları']
+    en: ['Downloads of this version (applications and source kit)', 'Snapshot', 'Release notes'],
+    fr: ['Téléchargements de cette version (applications et kit source)', 'Relevé du', 'Notes de version'],
+    es: ['Descargas de esta versión (aplicaciones y kit de código fuente)', 'Datos del', 'Notas de la versión'],
+    it: ['Download di questa versione (applicazioni e kit sorgente)', 'Dati del', 'Note di versione'],
+    pt: ['Downloads desta versão (aplicações e kit de código-fonte)', 'Dados de', 'Notas da versão'],
+    ru: ['Загрузки этой версии (приложения и комплект исходного кода)', 'Данные на', 'Примечания к выпуску'],
+    ja: ['このバージョンのダウンロード数（アプリとソースキット）', '集計日時', 'リリースノート'],
+    hi: ['इस संस्करण के डाउनलोड (ऐप्लिकेशन और सोर्स किट)', 'आँकड़ों की तारीख', 'रिलीज़ नोट्स'],
+    zh: ['此版本的下载次数（应用程序和源码套件）', '统计时间', '发行说明'],
+    ko: ['이 버전의 다운로드 수(앱 및 소스 키트)', '집계 시각', '릴리스 노트'],
+    id: ['Unduhan versi ini (aplikasi dan kit sumber)', 'Data per', 'Catatan rilis'],
+    tr: ['Bu sürümün indirilme sayısı (uygulamalar ve kaynak kod paketi)', 'Veri tarihi', 'Sürüm notları']
   };
   let current = null;
   let refreshingCounts = false;
@@ -41,7 +41,7 @@
       item.querySelector('.sha').textContent = current.assets[key].sha256;
     });
     document.querySelectorAll('.download-card').forEach((card, i) => {
-      const pair = i === 0 ? ['macarm', 'macintel'] : ['setup', 'portable'];
+      const pair = i === 0 ? ['macarm', 'macintel', 'mackit'] : ['setup', 'portable', 'winkit'];
       const count = pair.reduce((sum, k) => sum + current.assets[k].downloads, 0);
       const number = card.querySelector('.download-count span');
       number.removeAttribute('aria-hidden');
