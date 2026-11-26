@@ -7,7 +7,7 @@
     "macarm": {
       "url": "https://github.com/TagMyAudio/TagMyAudio/releases/download/v1.8.6/TagMyAudio-1.8.6-macOS-arm64-community.zip",
       "sha256": "d389f483476b360a811e3d050fcf24bc83608aca36ce21bfdfd19e0662e3de82",
-      "downloads": 8
+      "downloads": 9
     },
     "macintel": {
       "url": "https://github.com/TagMyAudio/TagMyAudio/releases/download/v1.8.6/TagMyAudio-1.8.6-macOS-x86_64-community.zip",
@@ -17,7 +17,7 @@
     "setup": {
       "url": "https://github.com/TagMyAudio/TagMyAudio/releases/download/v1.8.6/TagMyAudio-1.8.6-Windows-x64-Setup.exe",
       "sha256": "dce03848ecc007d55ccf93ca913db7955c53a4901834614e612e5ba1cb451b38",
-      "downloads": 13
+      "downloads": 15
     },
     "portable": {
       "url": "https://github.com/TagMyAudio/TagMyAudio/releases/download/v1.8.6/TagMyAudio-1.8.6-Windows-x64-Portable.exe",
@@ -40,5 +40,5 @@
       "downloads": 2
     }
   },
-  "updated_at": "2026-11-24T16:00:16+00:00"
+  "updated_at": "2026-11-26T02:12:09+00:00"
 }
