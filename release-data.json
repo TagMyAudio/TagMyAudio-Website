@@ -27,7 +27,7 @@
     "mackit": {
       "url": "https://github.com/TagMyAudio/TagMyAudio/releases/download/v1.8.6/TagMyAudio-1.8.6-Build-macOS.zip",
       "sha256": "eb28a004b1b25d3ce498ef9bfaf62f841936833ca868fc133e8ee25e5c684c98",
-      "downloads": 14
+      "downloads": 15
     },
     "winkit": {
       "url": "https://github.com/TagMyAudio/TagMyAudio/releases/download/v1.8.6/TagMyAudio-1.8.6-Build-Win.zip",
@@ -40,5 +40,5 @@
       "downloads": 2
     }
   },
-  "updated_at": "2026-11-26T02:12:09+00:00"
+  "updated_at": "2026-11-27T20:10:14+00:00"
 }
